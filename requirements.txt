@@ -1,0 +1,10 @@
+datetime
+argparse
+logging
+sqlalchemy
+sqlalchemy.ext.declarative
+sqlalchemy.orm
+smtplib
+email
+bs4
+requests
