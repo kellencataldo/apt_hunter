@@ -9,19 +9,6 @@ import SETTINGS
 
 BASE = sqlalchemy.ext.declarative.declarative_base()
 
-database_url = {'drivername': 'postgresql+psycopg2',
-                'username': SETTINGS.USERNAME,
-                'password': SETTINGS.PASSWORD,
-                'host': SETTINGS.ADDRESS,
-                'port': SETTINGS.PORT,
-                'database': SETTINGS.DATABASE}
-
-DATABASE_ENGINE = sqlalchemy.create_engine(sqlalchemy.engine.url.URL(**database_url))
-DATABASE_ENGINE.connect()
-BASE.metadata.create_all(DATABASE_ENGINE)
-SESSION_FACTORY = sqlalchemy.orm.sessionmaker(bind=DATABASE_ENGINE)
-SESSION = sqlalchemy.orm.scoped_session(SESSION_FACTORY)
-
 
 class ApartmentEntry(BASE):
     __tablename__ = 'apartment_entries'
@@ -47,6 +34,21 @@ class ConfigEntry(BASE):
     __tablename__ = 'config_entries'
     config_key = sqlalchemy.Column(sqlalchemy.String, primary_key=True, nullable=False)
     config_val = sqlalchemy.Column(sqlalchemy.String, nullable=False)
+
+
+database_url = {'drivername': 'postgresql+psycopg2',
+                'username': SETTINGS.USERNAME,
+                'password': SETTINGS.PASSWORD,
+                'host': SETTINGS.ADDRESS,
+                'port': SETTINGS.PORT,
+                'database': SETTINGS.DATABASE}
+
+
+DATABASE_ENGINE = sqlalchemy.create_engine(sqlalchemy.engine.url.URL(**database_url))
+DATABASE_ENGINE.connect()
+BASE.metadata.create_all(DATABASE_ENGINE)
+SESSION_FACTORY = sqlalchemy.orm.sessionmaker(bind=DATABASE_ENGINE, expire_on_commit=False)
+SESSION = sqlalchemy.orm.scoped_session(SESSION_FACTORY)
 
 
 @contextlib.contextmanager

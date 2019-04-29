@@ -56,12 +56,12 @@ def main():
                         choices=['DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL'], default='ERROR')
     parser.add_argument('--oldest', metavar='YYYY-mm-dd::HH:MM', type=convert_datetime,
                         help='Set the maximum post age of apartment entries to process')
-    parser.add_argument('--json', metavar='path', type=str, default='environment.json',
+    parser.add_argument('--json', metavar='path', type=str, default='../configuration.json',
                         help='path to json configuration file')
     parser.add_argument('--noset', action='store_true', help='Do not set completion time when done')
     parsed_args = parser.parse_args()
 
-    logging_int = getattr(logging, parsed_args.log)
+    logging_int = getattr(logging, parsed_args.logging)
     log_file = f'{start_time.strftime("%m-%d-%Y")}.log'
     logging.basicConfig(filename=log_file, filemode='w', level=logging_int,
                         format='%(filename)s:%(lineno)d:%(threadName)s::%(message)s')
@@ -88,11 +88,8 @@ def main():
 
     post_processing.post_process_entries(entry_list, json_blob['post_processing'])
     email_str = '\n\n'.join(str(entry) for entry in entry_list)
-    print(email_str)
 
-    email_handler.send_emails(json_blob['emails'], email_str)
-
-    # send emails here.
+    email_handler.send_emails(json_blob['emails'], email_str, start_time)
 
     end_time = dt.datetime.now()
     logging.info(f'Logging ended: {end_time.strftime("%Y-%m-%d::%H:%M:%S")}'

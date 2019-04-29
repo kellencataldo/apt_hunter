@@ -40,13 +40,13 @@ def get_closest(apt_geo, category, geo_list):
     closest_item = geo_list[0]
     closest_dist = haversine_distance(apt_geo, closest_item)
     if len(geo_list) == 1:
-        return f'Distance to {category} at address {closest_item.address}: {closest_dist:.2f} miles euclidean'
+        return f'DISTANCE TO {category} AT ADDRESS {closest_item.address}: {closest_dist:.2f} MILES EUCLIDEAN'
     for geolocation in geo_list:
         compare_dist = haversine_distance(apt_geo, geolocation)
         if compare_dist < closest_dist:
             closest_dist = compare_dist
             closest_item = geolocation
-    return f'Closest {category} is {closest_item.address}: {closest_dist:.2f} miles euclidean'
+    return f'CLOSEST {category} IS {closest_item.address}: {closest_dist:.2f} MILES EUCLIDEAN'
 
 
 def post_process_entries(apt_entries, post_processing_blob):
