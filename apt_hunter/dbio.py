@@ -3,6 +3,7 @@ import sqlalchemy.ext.declarative
 import sqlalchemy.orm
 import contextlib
 import logging
+import os
 
 import SETTINGS
 
@@ -36,12 +37,26 @@ class ConfigEntry(BASE):
     config_val = sqlalchemy.Column(sqlalchemy.String, nullable=False)
 
 
+POSTGRES_ADDRESS = os.environ['POSTGRES_ADDRESS']
+POSTGRES_USER = os.environ['POSTGRES_USER']
+POSTGRES_PASSWORD = os.environ['POSTGRES_PASSWORD']
+POSTGRES_DB = os.environ['POSTGRES_DB']
+POSTGRES_PORT: 5432
+
 database_url = {'drivername': 'postgresql+psycopg2',
                 'username': SETTINGS.USERNAME,
                 'password': SETTINGS.PASSWORD,
                 'host': SETTINGS.ADDRESS,
                 'port': SETTINGS.PORT,
                 'database': SETTINGS.DATABASE}
+
+
+#database_url = {'drivername': 'postgresql+psycopg2',
+#                'username': SETTINGS.USERNAME,
+#                'password': SETTINGS.PASSWORD,
+#                'host': SETTINGS.ADDRESS,
+#                'port': SETTINGS.PORT,
+#                'database': SETTINGS.DATABASE}
 
 
 DATABASE_ENGINE = sqlalchemy.create_engine(sqlalchemy.engine.url.URL(**database_url))

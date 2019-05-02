@@ -56,7 +56,7 @@ def main():
                         choices=['DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL'], default='ERROR')
     parser.add_argument('--oldest', metavar='YYYY-mm-dd::HH:MM', type=convert_datetime,
                         help='Set the maximum post age of apartment entries to process')
-    parser.add_argument('--json', metavar='path', type=str, default='../configuration.json',
+    parser.add_argument('--json', metavar='path', type=str, default='../data/configuration.json',
                         help='path to json configuration file')
     parser.add_argument('--noset', action='store_true', help='Do not set completion time when done')
     parsed_args = parser.parse_args()

@@ -1,12 +1,6 @@
 datetime
 argparse
-logging
 sqlalchemy
-sqlalchemy.ext.declarative
-sqlalchemy.orm
-smtplib
 email
-import email.mime.multipart
-import email.mime.text
 bs4
 requests

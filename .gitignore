@@ -1,2 +1,3 @@
 configuration.json
 apt_hunter/SETTINGS.py
+apt_hunter/__pycache__/
