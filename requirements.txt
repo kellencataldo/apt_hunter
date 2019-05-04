@@ -1,6 +1,6 @@
 datetime
 argparse
 sqlalchemy
-email
 bs4
 requests
+psycopg2

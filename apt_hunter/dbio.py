@@ -41,22 +41,14 @@ POSTGRES_ADDRESS = os.environ['POSTGRES_ADDRESS']
 POSTGRES_USER = os.environ['POSTGRES_USER']
 POSTGRES_PASSWORD = os.environ['POSTGRES_PASSWORD']
 POSTGRES_DB = os.environ['POSTGRES_DB']
-POSTGRES_PORT: 5432
+POSTGRES_PORT = os.environ['POSTGRES_PORT']
 
 database_url = {'drivername': 'postgresql+psycopg2',
-                'username': SETTINGS.USERNAME,
-                'password': SETTINGS.PASSWORD,
-                'host': SETTINGS.ADDRESS,
-                'port': SETTINGS.PORT,
-                'database': SETTINGS.DATABASE}
-
-
-#database_url = {'drivername': 'postgresql+psycopg2',
-#                'username': SETTINGS.USERNAME,
-#                'password': SETTINGS.PASSWORD,
-#                'host': SETTINGS.ADDRESS,
-#                'port': SETTINGS.PORT,
-#                'database': SETTINGS.DATABASE}
+                'username': POSTGRES_USER,
+                'password': POSTGRES_PASSWORD,
+                'host': POSTGRES_ADDRESS,
+                'port': POSTGRES_PORT,
+                'database': POSTGRES_DB}
 
 
 DATABASE_ENGINE = sqlalchemy.create_engine(sqlalchemy.engine.url.URL(**database_url))
