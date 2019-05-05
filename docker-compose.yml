@@ -1,24 +1,31 @@
 version: '3.7'
 
 services:
+    postgres_container:
+        image: postgres
+        restart: always
+        #        volumes:
+            #            - ./postgres_data:/var/lib/postgresql/data/pgdata 
+        environment:
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: password
+            POSTGRES_DB: apt_hunter
+            #            PGDATA: /var/lib/postgresql/data/pgdata # volume where postgres data is stored
+
+            # add in 
+
     apt_hunter:
         build: .
         restart: always
+        volumes:
+            - ./logs:/apt_hunter/logs
+        depends_on: 
+            - postgres_container
         environment:
-            # database settings, must match postgres container
             POSTGRES_ADDRESS: postgres_container
             POSTGRES_USER: postgres
             POSTGRES_PASSWORD: password
             POSTGRES_DB: apt_hunter
             POSTGRES_PORT: 5432
 
-
-    postgres_container:
-        image: postgres
-        restart: always
-        environment:
-            POSTGRES_USER: postgres
-            POSTGRES_PASSWORD: password
-            POSTGRES_DB: apt_hunter
-
-
+            LOG_PATH: /apt_hunter/logs/
