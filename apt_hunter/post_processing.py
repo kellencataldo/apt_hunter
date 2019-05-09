@@ -1,7 +1,7 @@
 import math
 
 import http_request
-import SETTINGS
+import SECRETS
 
 
 class Geolocation():
@@ -30,7 +30,7 @@ def haversine_distance(geo_one, geo_two):
 def address_to_geo(address):
     sanitized_address = address.replace(' ', '+')
     request_prefix = 'https://maps.googleapis.com/maps/api/geocode/json?'
-    request_url = f'{request_prefix}address={sanitized_address}&key={SETTINGS.GOOGLE_API_KEY}'
+    request_url = f'{request_prefix}address={sanitized_address}&key={SECRETS.GOOGLE_API_KEY}'
     json_result = http_request.json_request(request_url)
     geo_blob = json_result['results'][0]['geometry']['location']
     return Geolocation(address, geo_blob['lat'], geo_blob['lng'])

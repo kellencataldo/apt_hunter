@@ -5,12 +5,15 @@ import logging
 import json
 import threading
 import time
+import os
 
 import dbio
 import apts_dot_com
 import post_processing
 import email_handler
-import SETTINGS
+
+
+MAX_RUNTIME = 60 * 10
 
 domain_handlers = {'apartments.com': apts_dot_com.perform_search}
 
@@ -31,7 +34,7 @@ def start_crawler(args_tuple):
 
 
 def wait_on_threads(thread_list):
-    wait_time = SETTINGS.MAX_RUNTIME
+    wait_time = MAX_RUNTIME
     for thread_handle in thread_list:
         start_time = time.time()
         thread_handle.join(timeout=wait_time)
@@ -56,19 +59,27 @@ def main():
                         choices=['DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL'], default='ERROR')
     parser.add_argument('--oldest', metavar='YYYY-mm-dd::HH:MM', type=convert_datetime,
                         help='Set the maximum post age of apartment entries to process')
-    parser.add_argument('--json', metavar='path', type=str, default='../data/configuration.json',
-                        help='path to json configuration file')
     parser.add_argument('--noset', action='store_true', help='Do not set completion time when done')
     parsed_args = parser.parse_args()
 
     logging_int = getattr(logging, parsed_args.logging)
-    log_file = f'{start_time.strftime("%m-%d-%Y")}.log'
+    log_file = os.path.join(os.environ['LOG_PATH'], f'{start_time.strftime("%m-%d-%Y")}.log')
+
     logging.basicConfig(filename=log_file, filemode='w', level=logging_int,
                         format='%(filename)s:%(lineno)d:%(threadName)s::%(message)s')
     logging.info(f'Logging started {start_time.strftime("%H:%M:%S")}')
+    logging.error('coooooooooool and gay')
 
-    with open(parsed_args.json, "r") as config_file:
+    with open(os.environ['DATA_PATH'], "r") as config_file:
         json_blob = json.load(config_file)
+
+    new_entry = dbio.ApartmentEntry('1234', 4, 'www.cole.com', 'coler', 'colington')
+    if dbio.apt_in_database(new_entry):
+        print('WEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE OUT HERE!!!!!!!!!')
+    else:
+        print('cool first time for everything')
+
+    return 0
 
     max_age = parsed_args.oldest
     if max_age is None:

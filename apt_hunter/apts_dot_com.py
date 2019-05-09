@@ -3,7 +3,6 @@ import logging
 import json
 import re
 
-# import config
 import dbio
 import http_request
 

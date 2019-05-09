@@ -5,8 +5,6 @@ import contextlib
 import logging
 import os
 
-import SETTINGS
-
 
 BASE = sqlalchemy.ext.declarative.declarative_base()
 

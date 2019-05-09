@@ -1,0 +1,35 @@
+{
+    "emails" : {
+        "kellen" : "kellencataldo@gmail.com"
+    },
+    
+    "domains" : {
+        "apartments.com" : [
+            "https://www.apartments.com/porter-square-cambridge-ma/under-3300/?so=8",
+            "https://www.apartments.com/porter-square-cambridge-ma/3-bedrooms-under-3300/?so=8"
+        ]
+    },
+
+    "post_processing" : {
+        "google_maps" : {
+            "addresses" : {
+                "redline station" : [
+                    "Kendall Station, Cambridge MA",
+                    "Central Square Station, Cambridge MA",
+                    "Harvard Station, Cambridge MA",
+                    "Alewife Station, Cambridge MA",
+                    "Porter Station, Cambridge MA"
+                ],
+
+                "carbon black" : [
+                    "1100 Winter Street, Waltham MA"
+
+                ]
+
+            }
+        }
+    }
+}
+
+
+
