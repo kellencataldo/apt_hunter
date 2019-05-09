@@ -1,7 +1,0 @@
-# THIS IS AN EXAMPLE FILE! YOU WILL HAVE TO FILL IN DATA YOURSELF
-
-
-GOOGLE_API_KEY = "YoUrApIkEy"
-
-EMAIL_ADDRESS = 'your_email@address.com'
-EMAIL_PASSWORD = 'your_password'
