@@ -19,7 +19,6 @@ services:
 
     apt_hunter:
         build: .
-        # restart: always
         volumes:
             - ./logs:/apt_hunter/logs
         depends_on: 

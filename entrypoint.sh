@@ -1,27 +1,24 @@
 #!/bin/sh
 
-#!/bin/sh
-# wait-for-postgres.sh
 
-set -e
+connect() {
+    PGPASSWORD=${POSTGRES_PASSWORD} psql ${POSTGRES_DB} -h ${POSTGRES_ADDRESS} \
+        -p ${POSTGRES_PORT} -U ${POSTGRES_USER} -c '\q';
+}
 
-host="$1"
-shift
-cmd="$@"
+MAX_ATTEMPTS=3
+INDEX=0
 
-
-# for three times
-#   check db set bool
-#   sleep
-
-# if bool set:
-#   execute shit
-# else:
-    # print error and exit 
-until PGPASSWORD=$POSTGRES_PASSWORD psql -h "$host" -U "postgres" -c '\q'; do
-  >&2 echo "Postgres is unavailable - sleeping"
-  sleep 1
+until connect; do
+    if [ $INDEX -eq $MAX_ATTEMPTS ]; then
+        >&2 echo "POSTGRES SERVICE CANNOT BE REACHED AFTER ${MAX_ATTEMPTS} ATTEMPTS: EXITING."
+        exit 1
+    fi
+    INDEX=$((INDEX + 1))
+    >&2 echo "POSTGRES SERVICE CANNOT BE REACHED: SLEEPING"
+    sleep 1
 done
+    
+#if [ "$bool" = true ]; then
+#    exec "$@"
 
->&2 echo "Postgres is up - executing command"
-exec $cmd
