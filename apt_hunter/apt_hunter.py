@@ -68,18 +68,9 @@ def main():
     logging.basicConfig(filename=log_file, filemode='w', level=logging_int,
                         format='%(filename)s:%(lineno)d:%(threadName)s::%(message)s')
     logging.info(f'Logging started {start_time.strftime("%H:%M:%S")}')
-    logging.error('coooooooooool and gay')
 
     with open(os.environ['DATA_PATH'], "r") as config_file:
         json_blob = json.load(config_file)
-
-    new_entry = dbio.ApartmentEntry('1234', 4, 'www.cole.com', 'coler', 'colington')
-    if dbio.apt_in_database(new_entry):
-        print('WEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE OUT HERE!!!!!!!!!')
-    else:
-        print('cool first time for everything')
-
-    return 0
 
     max_age = parsed_args.oldest
     if max_age is None:

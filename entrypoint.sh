@@ -11,14 +11,13 @@ INDEX=0
 
 until connect; do
     if [ $INDEX -eq $MAX_ATTEMPTS ]; then
-        >&2 echo "POSTGRES SERVICE CANNOT BE REACHED AFTER ${MAX_ATTEMPTS} ATTEMPTS: EXITING."
+        "POSTGRES SERVICE CANNOT BE REACHED AFTER ${MAX_ATTEMPTS} ATTEMPTS: EXITING."
         exit 1
     fi
     INDEX=$((INDEX + 1))
-    >&2 echo "POSTGRES SERVICE CANNOT BE REACHED: SLEEPING"
+    echo "POSTGRES SERVICE CANNOT BE REACHED: SLEEPING"
     sleep 1
 done
-    
-#if [ "$bool" = true ]; then
-#    exec "$@"
+
+exec "$@"
 

@@ -20,7 +20,7 @@ services:
     apt_hunter:
         build: .
         volumes:
-            - ./logs:/apt_hunter/logs
+            - ./logs:/apt_hunter/logs/
         depends_on: 
             - postgres_container
         environment:
