@@ -8,22 +8,25 @@ import time
 import os
 
 import dbio
-import apts_dot_com
 import post_processing
 import email_handler
+import apts_dot_com
+import hotpads
+import zillow
 
 
 MAX_RUNTIME = 60 * 10
 
-domain_handlers = {'apartments.com': apts_dot_com.perform_search}
+domain_handlers = {'apartments.com': apts_dot_com.perform_search,
+                   'zillow': zillow.perform_search,
+                   'hotpads': hotpads.perform_search}
 
 
 def search_loop(domain, urls, max_age, entry_list):
     logging.info(f'Launched thread crawling domain: {domain}')
     start_time = dt.datetime.now()
-    domain_handler = domain_handlers[domain]
     for search_url in urls:
-        domain_handler(search_url, max_age, entry_list)
+        domain_handlers[domain](search_url, max_age, entry_list)
     logging.info(f'Ending crawler: {domain} runtime: {(dt.datetime.now() - start_time).seconds}s')
 
 
@@ -59,7 +62,6 @@ def main():
                         choices=['DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL'], default='ERROR')
     parser.add_argument('--oldest', metavar='YYYY-mm-dd::HH:MM', type=convert_datetime,
                         help='Set the maximum post age of apartment entries to process')
-    parser.add_argument('--noset', action='store_true', help='Do not set completion time when done')
     parsed_args = parser.parse_args()
 
     logging_int = getattr(logging, parsed_args.logging)
