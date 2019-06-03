@@ -11,15 +11,15 @@ import dbio
 import post_processing
 import email_handler
 import apts_dot_com
-import hotpads
 import zillow
+import trulia
 
 
 MAX_RUNTIME = 60 * 10
 
 domain_handlers = {'apartments.com': apts_dot_com.perform_search,
                    'zillow': zillow.perform_search,
-                   'hotpads': hotpads.perform_search}
+                   'trulia': trulia.perform_search}
 
 
 def search_loop(domain, urls, max_age, entry_list):
@@ -86,9 +86,7 @@ def main():
     thread_list = [start_crawler((domain, urls, max_age, entry_list)) for domain, urls in domains.items()]
     wait_on_threads(thread_list)
 
-    # do this here so that on an unsuccessful run the date is not set
-    if not parsed_args.noset:
-        dbio.set_last_run(start_time.strftime("%Y-%m-%d::%H:%M"))
+    dbio.set_last_run(start_time.strftime("%Y-%m-%d::%H:%M"))
 
     post_processing.post_process_entries(entry_list, json_blob['post_processing'])
     email_str = '\n\n'.join(str(entry) for entry in entry_list)

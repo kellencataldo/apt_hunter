@@ -15,9 +15,10 @@ until connect; do
         exit 1
     fi
     INDEX=$((INDEX + 1))
-    echo "POSTGRES SERVICE CANNOT BE REACHED: SLEEPING"
+    echo "POSTGRES SERVICE CANNOT BE REACHED: SLEEPING."
     sleep 1
 done
 
+echo "POSTGRES CONNECTION ESTABLISHED. STARTING SCRIPT."
 exec "$@"
 

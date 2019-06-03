@@ -7,6 +7,9 @@
         "apartments.com" : [
             "https://www.apartments.com/porter-square-cambridge-ma/under-3300/?so=8",
             "https://www.apartments.com/porter-square-cambridge-ma/3-bedrooms-under-3300/?so=8"
+        ],
+        "trulia" : [
+            "https://www.trulia.com/for_rent/16192_nh/0-2400_price/date;d_sort/17_zm/"
         ]
     },
 

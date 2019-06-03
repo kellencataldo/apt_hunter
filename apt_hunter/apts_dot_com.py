@@ -13,10 +13,10 @@ def get_next_page(html_soup, base_url):
         return
     total_pages = int(paging_div.find_all('a')[-2].text)
     url_split = base_url.rfind('/')
-    url_right_piece = base_url[:url_split + 1]
+    url_left_piece = base_url[:url_split + 1]
     sort_order = base_url[url_split + 1:]
     for i in range(2, total_pages + 1):
-        yield url_right_piece + f'{i}/' + sort_order
+        yield url_left_piece + f'{i}/' + sort_order
 
 
 def exceeds_max_age(freshness_blob, current_time, max_age):
@@ -52,7 +52,7 @@ def get_search_entry(json_blob):
     street_address = main_entity['address']['streetAddress']
     city = main_entity['address']['addressLocality']
     state = main_entity['address']['addressRegion']
-    address = re.sub(r'([^0-9A-Za-z ,])+', '', ' '.join([street_address, city, state])).lower()
+    address = re.sub(r'([^0-9A-Za-z ,#]+)', '', ' '.join([street_address, city, state])).lower()
     description = main_entity['description']
     price = property_json['about']['offers']['highPrice']
     return dbio.ApartmentEntry(address, price, url, title, description)

@@ -4,7 +4,7 @@ import time
 import logging
 
 
-HTTP_SLEEP_DELAY = 1  # seconds
+HTTP_SLEEP_DELAY = 2  # seconds
 HTTP_TIMEOUT = 5  # seconds
 HTTP_USER_AGENT = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko)"
 

@@ -13,6 +13,7 @@ def send_emails(email_blob, email_str, start_time):
         message['From'] = SECRETS.EMAIL_ADDRESS
         message['To'] = address
         message['Subject'] = f'crawl result for {start_time.strftime("%Y-%m-%d")}'
+        message['Reply-to'] = SECRETS.EMAIL_ADDRESS
         formatted_email = f'Hello {name} here are the matches:\n\n{email_str}'
         email_body = email.mime.text.MIMEText(formatted_email, 'plain')
         message.attach(email_body)
